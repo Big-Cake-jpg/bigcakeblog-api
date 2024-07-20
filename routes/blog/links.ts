@@ -5,6 +5,8 @@ import "dotenv/config";
 import chalk from "chalk";
 
 const CONNECTION_STRING = process.env.CONNECTION_STRING || "";
+const MONGO_DB = process.env.MONGO_DB || "";
+const MONGO_COLLECTION = process.env.MONGO_COLLECTION || "";
 
 export const linksRoute = Router();
 
@@ -28,8 +30,8 @@ linksRoute.get("/inpage", async (req, res) => {
 linksRoute.get("/global", async (req, res) => {
   try {
     const client = await MongoClient.connect(CONNECTION_STRING);
-    const db = await client.db("Links");
-    const result = await db.collection("global").find().toArray();
+    const db = await client.db(MONGO_DB);
+    const result = await db.collection(MONGO_COLLECTION).find().toArray();
     res.send(result);
   } catch (error) {
     console.log(
