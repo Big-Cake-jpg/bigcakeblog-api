@@ -1,0 +1,104 @@
+openapi: 3.0.0
+info:
+  title: Minecraft 模组名称翻译数据库 API
+  description: 提供 Minecraft 模组名称的翻译信息
+  version: 1.0.0
+servers:
+  - url: https://api.lihaoyu.cn/mod-translations/v1/
+    description: 生产环境
+paths:
+  /:
+    get:
+      summary: API 信息
+      description: 获取 API 的基本信息，包括版本和文档链接。
+      responses:
+        "200":
+          description: 成功获取 API 信息
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  code:
+                    type: integer
+                  version:
+                    type: string
+                  message:
+                    type: string
+                  docs:
+                    type: string
+  /name:
+    get:
+      summary: 查询模组翻译
+      description: 根据模组的 slug 查询模组的名称和翻译。
+      parameters:
+        - in: query
+          name: slug
+          schema:
+            type: string
+          required: true
+          description: 模组的 slug
+      responses:
+        "200":
+          description: 成功获取模组翻译信息
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  code:
+                    type: integer
+                  message:
+                    type: string
+                  data:
+                    type: object
+                    properties:
+                      mod_id:
+                        type: integer
+                      mod_name:
+                        type: string
+                      mod_translation:
+                        type: string
+        "400":
+          description: 请求缺少 slug 参数
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  code:
+                    type: integer
+                  message:
+                    type: string
+        "404":
+          description: 未找到对应的模组翻译信息
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  code:
+                    type: integer
+                  message:
+                    type: string
+        "500":
+          description: 服务器内部错误
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  code:
+                    type: integer
+                  message:
+                    type: string

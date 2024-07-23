@@ -6,7 +6,7 @@
 
 ## 运行环境
 
-- Node.js ≥ 18.0
+- Node.js 20.x
 - TypeScript 5.x
 - pnpm 9.x
 - MongoDB ≥ 7.0
@@ -21,7 +21,7 @@
 git clone https://github.com/Big-Cake-jpg/bigcakeblog-api.git
 cd bigcakeblog-api
 pnpm install
-pnpm run start
+pnpm run dev
 ```
 
 ## License
