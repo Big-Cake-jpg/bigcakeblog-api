@@ -1,5 +1,6 @@
 import express from "express";
 import { linksRoute } from "../routes/blog/links.js";
+import { modrinthRoute } from "../routes/mosearch/v0/modrinth.js";
 import pkg from "../package.json" assert { type: "json" };
 
 const app = express();
@@ -17,6 +18,9 @@ router.all("/", (req, res) => {
 
 // 友链
 router.use("/blog/links", linksRoute);
+
+// MoSearch
+router.use("/mosearch/v0/modrinth", modrinthRoute);
 
 // 全局捕获
 router.use((req, res) => {
