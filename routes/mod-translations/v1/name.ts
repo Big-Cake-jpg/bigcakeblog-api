@@ -94,9 +94,8 @@ mcmtRoute.get("/name", async (req, res) => {
       code: 200,
       message: "已查询到对应的 Mod 翻译信息",
       data: {
-        mod_id: modId,
-        mod_name: name,
-        mod_translation: translation,
+      mod_id: modId,
+      mod_translation: translation.replace(/\r/g, ""),
       },
     });
   } catch (error) {
