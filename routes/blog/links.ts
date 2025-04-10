@@ -28,8 +28,9 @@ linksRoute.get("/inpage", async (req, res) => {
 });
 
 linksRoute.get("/global", async (req, res) => {
+  let client: MongoClient | undefined;
   try {
-    const client = await MongoClient.connect(CONNECTION_STRING);
+    client = await MongoClient.connect(CONNECTION_STRING);
     const db = await client.db(MONGO_DB);
     const result = await db.collection(MONGO_COLLECTION).find().toArray();
     res.send(result);
@@ -41,6 +42,10 @@ linksRoute.get("/global", async (req, res) => {
       error
     );
     res.status(500).send({ success: false, code: 500, message: "招待…不周……" });
+  } finally {
+    if (client) {
+      client.close();
+    }
   }
 });
 

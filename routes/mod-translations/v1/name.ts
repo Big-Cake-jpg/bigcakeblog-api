@@ -108,5 +108,7 @@ mcmtRoute.get("/name", async (req, res) => {
     res
       .status(500)
       .send({ success: false, code: 500, message: "Internal server error" });
+  } finally {
+    sql.end();
   }
 });
