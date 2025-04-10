@@ -1,7 +1,9 @@
 import express from "express";
-import { linksRoute } from "../routes/blog/links.js";
-import { modrinthRoute } from "../routes/mosearch/v0/modrinth.js";
-import { mcmtRoute } from "../routes/mod-translations/v1/name.js";
+import { linksRoute } from "../routes/blog/links.ts";
+import { modrinthRoute } from "../routes/mosearch/v0/modrinth.ts";
+import { mcmtRoute } from "../routes/mod-translations/v1/name.ts";
+import { ipRoute } from "../routes/blog/ip.ts";
+import { summaryRoute } from "../routes/blog/summary.ts";
 import pkg from "../package.json" assert { type: "json" };
 import swaggerUi from 'swagger-ui-express';
 import YAML from 'yamljs';
@@ -22,6 +24,7 @@ router.all("/", (req, res) => {
 
 // 友链
 router.use("/blog/links", linksRoute);
+router.use("/blog/ip", ipRoute);
 
 // MoSearch
 router.use("/mosearch/v0/modrinth", modrinthRoute);
@@ -29,6 +32,8 @@ router.use("/mosearch/v0/modrinth", modrinthRoute);
 // MC Mod Translate
 router.use("/mod-translations/v1", mcmtRoute);
 router.use('/mod-translations/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+router.use("/blog/summary", summaryRoute);
 
 // 全局捕获
 router.use((req, res) => {
