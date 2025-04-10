@@ -2,7 +2,7 @@ import axios from "axios";
 import { Router } from "express";
 import "dotenv/config";
 import chalk from "chalk";
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { GoogleGenAI } from "@google/genai";
 import pkg from "pg";
 import { Request, Response, NextFunction } from "express";
 
@@ -34,8 +34,17 @@ const validateOrigin = (req: Request, res: Response, next: NextFunction) => {
 
 summaryRoute.use(validateOrigin);
 
-const genAI = new GoogleGenerativeAI(process.env.GOOGLE_AI_API_KEY || "");
-const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+const apiKey = process.env.GOOGLE_AI_API_KEY;
+const apiEndpoint =
+  process.env.GOOGLE_AI_ENDPOINT || "https://generativelanguage.googleapis.com";
+const model = process.env.GOOGLE_AI_MODEL || "gemini-2.0-flash";
+
+const genAI = new GoogleGenAI({
+  apiKey,
+  httpOptions: {
+    baseUrl: apiEndpoint,
+  },
+});
 
 const pool = new Pool({
   connectionString: process.env.SUMMARY_DATABASE_URL,
@@ -63,16 +72,19 @@ async function generateBlogSummary(blogContent: string): Promise<string> {
     console.log(chalk.yellow(`生成新的摘要`));
 
     const prompt = `
-      请为以下博客文章生成一个简洁的摘要，控制在100-150字之间，
+      请为以下博客文章生成一个简洁的摘要，控制在 100 到 150 字之间，
       突出文章的主要观点和价值。请使用第三人称，
-      不要包含"本文"、"作者"等字眼，汉字与英文之间添加空格。
+      不要包含"本文"、"作者"等字眼。
       
       文章内容:
       ${blogContent}
     `;
 
-    const result = await model.generateContent(prompt);
-    return result.response.text().trim();
+    const result = await genAI.models.generateContent({
+      model,
+      contents: prompt,
+    });
+    return result.text || "";
   } catch (error) {
     console.error(chalk.red("[ERROR] Failed to generate summary:"), error);
     throw new Error("摘要生成失败");
