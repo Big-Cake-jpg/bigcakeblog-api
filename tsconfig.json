@@ -9,9 +9,7 @@
     "moduleResolution": "NodeNext",
     "skipLibCheck": true,
     "isolatedModules": true,
-    "resolveJsonModule": true,
-    "noEmit": true,
-    "allowImportingTsExtensions": true
+    "resolveJsonModule": true
   },
   "exclude": ["node_modules"],
   "ts-node": {

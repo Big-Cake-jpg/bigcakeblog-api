@@ -1,7 +1,7 @@
 import "dotenv/config";
 import chalk from "chalk";
 import express from "express";
-import { routes } from "./modules/router.ts";
+import { routes } from "./modules/router.js";
 import cors from "cors";
 
 const port = process.env.APP_PORT;

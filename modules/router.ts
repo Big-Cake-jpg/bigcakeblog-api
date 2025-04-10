@@ -1,9 +1,9 @@
 import express from "express";
-import { linksRoute } from "../routes/blog/links.ts";
-import { modrinthRoute } from "../routes/mosearch/v0/modrinth.ts";
-import { mcmtRoute } from "../routes/mod-translations/v1/name.ts";
-import { ipRoute } from "../routes/blog/ip.ts";
-import { summaryRoute } from "../routes/blog/summary.ts";
+import { linksRoute } from "../routes/blog/links.js";
+import { modrinthRoute } from "../routes/mosearch/v0/modrinth.js";
+import { mcmtRoute } from "../routes/mod-translations/v1/name.js";
+import { ipRoute } from "../routes/blog/ip.js";
+import { summaryRoute } from "../routes/blog/summary.js";
 import pkg from "../package.json" assert { type: "json" };
 import swaggerUi from 'swagger-ui-express';
 import YAML from 'yamljs';
