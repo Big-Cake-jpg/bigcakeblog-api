@@ -36,7 +36,7 @@ summaryRoute.use(validateOrigin);
 
 const apiKey = process.env.GOOGLE_AI_API_KEY;
 const apiEndpoint =
-  process.env.GOOGLE_AI_ENDPOINT || "https://generativelanguage.googleapis.com";
+  process.env.GOOGLE_AI_API_ENDPOINT || "https://generativelanguage.googleapis.com";
 const model = process.env.GOOGLE_AI_MODEL || "gemini-2.0-flash";
 
 const genAI = new GoogleGenAI({
