@@ -15,9 +15,9 @@ const validateOrigin = (req: Request, res: Response, next: NextFunction) => {
 
   const allowedDomains = [
     /^http?:\/\/localhost:4859/,
-    /^https?:\/\/.*\.lihaoyu\.cn$/,
-    /^https?:\/\/.*\.cakemc\.top$/,
-    /^https?:\/\/.*\.230225\.xyz$/,
+    /^https?:\/\/(.*\.)?lihaoyu\.cn(\/.*)?$/,
+    /^https?:\/\/(.*\.)?cakemc\.top(\/.*)?$/,
+    /^https?:\/\/(.*\.)?230225\.xyz(\/.*)?$/,
   ];
 
   if (referer && allowedDomains.some((domain) => domain.test(referer))) {
